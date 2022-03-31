@@ -5,9 +5,12 @@ package com.EmployeePayrollJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import com.mysql.cj.jdbc.Driver;
 
@@ -68,8 +71,9 @@ public class EmployeePayRollData {
 	
 	
 	/**	Register JDBC driver and connect to sql 
+	 * @return con
 	 * @throws ClassNotFoundException **/
-	public  void getConnection() throws ClassNotFoundException {
+	public static  Connection getConnection() throws ClassNotFoundException {
 		System.out.println("Connecting to database...");
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -80,6 +84,7 @@ public class EmployeePayRollData {
 			e.printStackTrace();
 			
 		}
+		return con;
 	}
 	
 	private  void listDriver() {
@@ -88,7 +93,31 @@ public class EmployeePayRollData {
 			Driver driverClass = (Driver) driverList.nextElement();
 			System.out.println(" " + driverClass.getClass().getName());
 		}
-		
+	}
+	
+	
+	/**	Read data from empoyee_payroll database
+	 * Extract data from result set
+	 * @return employeePayRollJDBCList
+	 * @throws ClassNotFoundException , SQLException **/
+	
+	public static List<EmployeePayRollData> readEmployeeListData_fromDatabase(String query) throws SQLException, ClassNotFoundException {
+		Connection connection;
+		List<EmployeePayRollData> employeePayRollJDBCList = new ArrayList<>();
+		connection = getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet rs = statement.executeQuery(query);
+		while (rs.next())
+			employeePayRollJDBCList.add(
+					new EmployeePayRollData(rs.getInt("id"), rs.getString("name"), rs.getDouble("salary")));
+		System.out.println(employeePayRollJDBCList.size());
+		employeePayRollJDBCList.forEach(System.out::println);
+		statement.close();
+		rs.close();
+		connection.close();
+		return employeePayRollJDBCList;
+	}
+	
+	
 
-}
 }
