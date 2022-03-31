@@ -38,5 +38,13 @@ public class Employee_payrollTest {
 		List<EmployeePayRollData> updatedRowsInDB = emp.inAgivenRangeReturnEmployeeList("2022-03-25","2022-03-27");
 		Assert.assertEquals(3, updatedRowsInDB.size());
 	}
+	
+	//uc6
+	@Test
+	public void givenEmployeesDB_shouldFindOperation_ReturnOperationData() throws ClassNotFoundException, SQLException {
+		Main emp =new Main();	
+		int list=emp.executeDifferentOperation();
+		Assert.assertEquals(2, list);
+	}
 
 }

@@ -31,7 +31,7 @@ public class EmployeePayRollData {
 	static Statement stmt = null;
 	private int employee_Id;
 	private String employee_name;
-	
+	private int sum,avg,count,max,min;
 	private double employee_salary;
 	
 	public EmployeePayRollData(int employee_Id,String employee_name,double employee_salary) {
@@ -39,6 +39,14 @@ public class EmployeePayRollData {
 		this.employee_name = employee_name;
 		this.employee_salary =employee_salary;
 		
+	}
+	public EmployeePayRollData(int sum,int avg,int max,int min,int count) {
+		
+		this.sum = sum;
+		this.avg = avg;
+		this.count = count;
+		this.max = max;
+		this.min = min;
 	}
 	
 	
@@ -71,6 +79,7 @@ public class EmployeePayRollData {
 		return "EmployeePayRollData [employee_Id=" + employee_Id + ", employee_name=" + employee_name
 				+ ", employee_salary=" + employee_salary + "]";
 	}
+	
 	
 	
 	/**	Register JDBC driver and connect to sql 
@@ -153,6 +162,23 @@ public class EmployeePayRollData {
 	public static List<EmployeePayRollData> queryEmployeePayrollDBReturnEmployeeList(String startDate, String endDate) throws SQLException, ClassNotFoundException {
 		String query = String.format("SELECT * FROM employee_payroll WHERE StartDate   BETWEEN '%s' AND '%s';",Date.valueOf(startDate), Date.valueOf(endDate));
 		return readEmployeeListData_fromDatabase(query);
+	}
+	
+	public static int executeDifferentOperation() throws ClassNotFoundException, SQLException {
+		final String query = "SELECT gender As Gender,SUM(salary) AS Sum_Of_salary, AVG(salary) AS Avg_Of_salary,MIN(salary) AS Min_Of_salary,MAX(salary) AS Max_Of_salary,COUNT(salary) AS Count FROM employee_payroll GROUP BY gender;";
+		Connection connection;
+		connection = getConnection();
+		Statement statement = connection.createStatement();
+		ResultSet resultSet = statement.executeQuery(query);
+		List<EmployeePayRollData> emplist = new ArrayList<>();
+		while (resultSet.next())
+			emplist.add(new EmployeePayRollData(resultSet.getInt("Sum_Of_salary"),resultSet.getInt("Avg_Of_salary"),resultSet.getInt("Min_Of_salary"),resultSet.getInt("Max_Of_salary"),resultSet.getInt("Count")));
+		emplist.forEach(System.out::println);
+		return emplist.size();
+	}
+	public String toString1() {
+		return "EmployeePayRollData [sum=" + sum + ", avg=" + avg
+				+ ", max=" + max + ", min=" + min+", count=" + count+"]";
 	}
 	
 	

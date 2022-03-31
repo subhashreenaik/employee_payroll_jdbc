@@ -48,6 +48,16 @@ public class Main {
 			throws ClassNotFoundException, SQLException {
 		return EmployeePayRollData.queryEmployeePayrollDBReturnEmployeeList(startDate, endDate);
 	}
+	
+	/**
+	 *  executing Different Operation like sum of salary,count,min,max value
+	 * @throws SQLException 
+	 */
+	public int executeDifferentOperation() throws ClassNotFoundException, SQLException {
+		
+		return EmployeePayRollData.executeDifferentOperation();
+		
+	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
@@ -59,13 +69,16 @@ public class Main {
 		m.read();
 
 		// Updating the data
-		m.updateData("SubhashreeNaik", 50000);
+		//m.updateData("SubhashreeNaik", 50000);
 
 		// Updating the data using prepared statement
-		m.updateUsingPreparedStatement("SubhashreeNaik", 57000);
+		//m.updateUsingPreparedStatement("SubhashreeNaik", 57000);
         
 		//Retriving data on a given range of Date
-		m.inAgivenRangeReturnEmployeeList("2022-03-25", "2022-03-27");
+		//m.inAgivenRangeReturnEmployeeList("2022-03-25", "2022-03-27");
+		
+		//excuting different operation on payroll db
+		m.executeDifferentOperation();
 
 	}
 
