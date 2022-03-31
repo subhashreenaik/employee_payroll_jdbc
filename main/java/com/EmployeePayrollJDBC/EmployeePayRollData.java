@@ -4,11 +4,13 @@
 package com.EmployeePayrollJDBC;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -146,6 +148,11 @@ public class EmployeePayRollData {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+	
+	public static List<EmployeePayRollData> queryEmployeePayrollDBReturnEmployeeList(String startDate, String endDate) throws SQLException, ClassNotFoundException {
+		String query = String.format("SELECT * FROM employee_payroll WHERE StartDate   BETWEEN '%s' AND '%s';",Date.valueOf(startDate), Date.valueOf(endDate));
+		return readEmployeeListData_fromDatabase(query);
 	}
 	
 	

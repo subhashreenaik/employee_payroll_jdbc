@@ -30,5 +30,13 @@ public class Employee_payrollTest {
 		long updatedRows = emp.updateData("SubhashreeNaik", 80000);
 		Assert.assertEquals(1, updatedRows);
 	}
+	
+	//uc5
+	public void givenDateRange_shouldMatchSyncWithDB_ReturnCountOfEmployee() throws SQLException, ClassNotFoundException {
+		Main emp = new Main();
+		
+		List<EmployeePayRollData> updatedRowsInDB = emp.inAgivenRangeReturnEmployeeList("2022-03-25","2022-03-27");
+		Assert.assertEquals(3, updatedRowsInDB.size());
+	}
 
 }
