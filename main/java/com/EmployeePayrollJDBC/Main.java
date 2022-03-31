@@ -12,6 +12,17 @@ public class Main {
 		   String  sql=scan.nextLine();
 		   return EmployeePayRollData.readEmployeeListData_fromDatabase(sql);	
 	}
+	
+	
+	
+	public long updateData(String name,double salary) throws ClassNotFoundException {
+		
+		System.out.println("     "+EmployeePayRollData.updateEmployeePayrollDataUsingStatement(name,salary));
+		return EmployeePayRollData.updateEmployeePayrollDataUsingStatement(name,salary);
+		
+		
+		
+	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
@@ -19,9 +30,13 @@ public class Main {
 	   //establish connection
        EmployeePayRollData.getConnection();
        
-       //  Execute a query and Extract data from result set
+        //  Execute a query and Extract data from result set
 		m.read();
-	   
+		
+		//Updating the data
+		m.updateData("SubhashreeNaik", 50000);
+		
+		
 	   
        
 	}

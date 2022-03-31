@@ -118,6 +118,19 @@ public class EmployeePayRollData {
 		return employeePayRollJDBCList;
 	}
 	
+	public static long updateEmployeePayrollDataUsingStatement(String name, Double salary) throws ClassNotFoundException {
+		String query = String.format("UPDATE employee_payroll SET salary=%.2f WHERE name='%s';", salary, name);
+		Connection connection;
+		try {
+			connection = getConnection();
+			Statement statement = connection.createStatement();
+			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	
 
 }
