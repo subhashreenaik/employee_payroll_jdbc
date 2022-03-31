@@ -23,6 +23,15 @@ public class Main {
 		
 		
 	}
+	
+public long updateUsingPreparedStatement(String name,int salary) throws ClassNotFoundException {
+		
+		System.out.println("     "+EmployeePayRollData.updateUsingPreparedStatement(name,salary));
+		return EmployeePayRollData.updateUsingPreparedStatement(name,salary);
+		
+		
+		
+	}
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
@@ -34,9 +43,9 @@ public class Main {
 		m.read();
 		
 		//Updating the data
-		m.updateData("SubhashreeNaik", 50000);
+	//	m.updateData("SubhashreeNaik", 50000);
 		
-		
+		m.updateUsingPreparedStatement("SubhashreeNaik", 57000);
 	   
        
 	}

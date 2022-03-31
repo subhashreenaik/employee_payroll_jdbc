@@ -5,6 +5,7 @@ package com.EmployeePayrollJDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -125,6 +126,22 @@ public class EmployeePayRollData {
 			connection = getConnection();
 			Statement statement = connection.createStatement();
 			return statement.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public static long updateUsingPreparedStatement(String name, int salary) throws ClassNotFoundException {
+
+		String query = "UPDATE employee_payroll SET salary = ? WHERE name = ? ";
+		Connection connection;
+		try {
+			connection = getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, salary);
+			preparedStatement.setString(2, name);
+			return preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

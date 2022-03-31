@@ -23,6 +23,12 @@ public class Employee_payrollTest {
 		Assert.assertEquals(1, updatedRows);
 	}
 	
-	
+	//uc4
+	@Test
+	public void whenUpdatedWithPreparedStatement_shouldMatchSyncWithDBStatemnt() throws ClassNotFoundException {
+		Main emp = new Main();
+		long updatedRows = emp.updateData("SubhashreeNaik", 80000);
+		Assert.assertEquals(1, updatedRows);
+	}
 
 }
